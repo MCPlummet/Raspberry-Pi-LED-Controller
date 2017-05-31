@@ -1,0 +1,17 @@
+{
+  "name": "led-interface",
+  "version": "1.0.0",
+  "description": "web interface for controlling LEDs view a Raspberry Pi's GPIO pins",
+  "main": "led_server.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "pi-gpio": "^0.0.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node led_server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

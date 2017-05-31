@@ -1,0 +1,64 @@
+<html>
+
+    <head>
+        <title>LED Controller</title>
+    </head>
+
+    <body>
+        <script>
+            function setColor(red, green, blue) {
+                var data = { r:red, g:green, b:blue };
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'setcolor', true);
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.onload = function() { console.log(this.responseText); };
+                xhr.send(JSON.stringify(data));
+
+            }
+
+            function toggleParty() {
+                var data = {t:parseFloat(document.getElementById('party-time').value),
+                    divs:parseInt(document.getElementById('party-divs').value)} ;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'toggle_party', true);
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.onload = function() { console.log(this.responseText); };
+                xhr.send(JSON.stringify(data));
+                console.log("ENABLING PARTY");
+            }
+
+            function brightDown() {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'brightnessdown', true);
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.onload = function() { console.log(this.responseText); };
+                xhr.send();
+            }
+
+            function brightUp() {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'brightnessup', true);
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.onload = function() { console.log(this.responseText); };
+                xhr.send();
+            }
+
+            function colorChooser() {
+                var color_hex = document.getElementById('light-color').value;
+                var color = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color_hex);
+                setColor(parseInt(color[1], 16), parseInt(color[2], 16), parseInt(color[3], 16));
+            }
+            
+        </script>
+    </body>
+
+    <h3>Change Color:</h3><input id="light-color" type="color" value="#ffffff" onchange="javascript:colorChooser()"></input><br>
+    <h3>Time to fade between colors:</h3><input id="party-time" type="text" value="1"></input>
+    <h3>Steps between colors:</h3><input id="party-divs" type="text" value="30"></input>
+    <button id="party-toggle" type="button" onclick="javascript:toggleParty()">Party!!!</button><br>
+    <!--<button id="brightdown" type="button" onclick="javascript:brightDown()">Brightness Down</button>
+    <button id="brightup" type="button" onclick="javascript:brightUp()">Brightness Up</button> -->
+
+</html>
